@@ -1,87 +1,4 @@
-﻿//namespace P01_SQL_Datenbankanbindung_Konsole
-//{
-//    using System;
-//    using Microsoft.Data.Sqlite;
-
-//    internal class Program
-//    {
-//        static void Main()
-//        {
-//            try
-//            {
-//                // Verbindung zur SQLite-Datenbank herstellen
-//                using (var connection = new SqliteConnection("Data Source=sample.db"))
-//                {
-//                    connection.Open();
-
-//                    // Tabelle erstellen (wenn nicht vorhanden)
-//                    using (var command = connection.CreateCommand())
-//                    {
-//                        // SQL-Befehl zum Erstellen d. Tabelle Persons
-//                        command.CommandText = "CREATE TABLE IF NOT EXISTS Persons (Id INTEGER PRIMARY KEY, Name TEXT)";
-//                        command.ExecuteNonQuery();
-//                    }
-
-//                    // Check für Doppeldaten
-//                    using (var command = connection.CreateCommand())
-//                    {
-//                        command.CommandText = "SELECT COUNT(*) FROM Persons";
-//                        int count = Convert.ToInt32(command.ExecuteScalar());
-
-//                        // Datenimplementierung
-//                        if (count == 0)
-//                        {
-//                            InsertData(connection, "John Doe");
-//                            InsertData(connection, "Jane Smith");
-//                            InsertData(connection, "Max Mustermann");
-//                            InsertData(connection, "Thomas A. Anderson");
-//                        }
-//                    }
-
-//                    // Daten abrufen und ausgeben
-//                    Console.WriteLine("Personen in der Datenbank:");
-//                    ReadData(connection);
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                Console.WriteLine($"Fehler: {ex.Message}");
-//            }
-//        }
-
-//        static void InsertData(SqliteConnection connection, string name)
-//        {
-//            using (var command = connection.CreateCommand())
-//            {
-//                // SQL-Befehl zum Einfügen von Daten in die Tabelle Persons
-//                command.CommandText = "INSERT INTO Persons (Name) VALUES (@Name)";
-//                command.Parameters.AddWithValue("@Name", name);
-//                command.ExecuteNonQuery();
-//            }
-//        }
-
-//        static void ReadData(SqliteConnection connection)
-//        {
-//            using (var command = connection.CreateCommand())
-//            {
-//                // SQL-Befehl zum Auswählen aller Daten aus der Tabelle Persons
-//                command.CommandText = "SELECT * FROM Persons";
-
-//                using (var reader = command.ExecuteReader())
-//                {
-//                    while (reader.Read())
-//                    {
-//                        // Daten aus der Ergebnismenge abrufen und ausgeben
-//                        Console.WriteLine($"Id: {reader.GetInt32(0)}, Name: {reader.GetString(1)}");
-//                    }
-//                }
-//            }
-//            Console.WriteLine($"Aktuelles Arbeitsverzeichnis: {Environment.CurrentDirectory}");
-//        }
-//    }
-//}
-
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using System;
 
 namespace P01_SQL_Datenbankanbindung_Konsole
@@ -94,7 +11,7 @@ namespace P01_SQL_Datenbankanbindung_Konsole
             {
                 string connectionString = "Data Source=sample.db";
 
-                // Verbindung zur SQLite-Datenbank herstellen
+                // Verbindung zur SQLite Datenbank herstellen
                 using (var connection = new SqliteConnection(connectionString))
                 {
                     connection.Open();
@@ -109,9 +26,9 @@ namespace P01_SQL_Datenbankanbindung_Konsole
 
                     while (true)
                     {
-                        Console.Clear(); // Bildschirm leeren
+                        Console.Clear();
 
-                        // Menü anzeigen
+                        // Menü in der Konsole
                         Console.WriteLine("1. Daten lesen");
                         Console.WriteLine("2. Daten hinzufügen");
                         Console.WriteLine("3. Daten löschen");
@@ -121,7 +38,7 @@ namespace P01_SQL_Datenbankanbindung_Konsole
                         Console.Write("Auswahl: ");
                         string input = Console.ReadLine();
 
-                        // Aktion basierend auf Benutzereingabe auswählen
+                        // switch case für die Usereingabe
                         switch (input)
                         {
                             case "1":
@@ -161,7 +78,7 @@ namespace P01_SQL_Datenbankanbindung_Konsole
                                 break;
                         }
 
-                        // Warte darauf, dass der Benutzer eine Taste drückt, um zum Menü zurückzukehren
+                        // Wartemenü
                         Console.WriteLine("\nDrücken Sie eine beliebige Taste, um fortzufahren...");
                         Console.ReadKey();
                     }
@@ -180,7 +97,7 @@ namespace P01_SQL_Datenbankanbindung_Konsole
                 // SQL-Befehl zum Einfügen von Daten in die Tabelle Persons
                 command.CommandText = "INSERT INTO Persons (Name) VALUES (@Name)";
                 command.Parameters.AddWithValue("@Name", name); // Parameter hinzufügen
-                command.ExecuteNonQuery(); // Ausführen des Befehls
+                command.ExecuteNonQuery();
                 Console.WriteLine("Daten wurden hinzugefügt.");
             }
         }
@@ -189,10 +106,10 @@ namespace P01_SQL_Datenbankanbindung_Konsole
         {
             using (var command = connection.CreateCommand())
             {
-                // SQL-Befehl zum Löschen von Daten aus der Tabelle Persons
+                // SQL-Befehl zum Löschen von Daten aus Persons
                 command.CommandText = "DELETE FROM Persons WHERE Id = @Id";
-                command.Parameters.AddWithValue("@Id", id); // Parameter hinzufügen
-                int rowsAffected = command.ExecuteNonQuery(); // Ausführen des Befehls
+                command.Parameters.AddWithValue("@Id", id); // Parameter hinzufügen bzw. entfernen
+                int rowsAffected = command.ExecuteNonQuery(); 
                 if (rowsAffected > 0)
                 {
                     Console.WriteLine("Daten wurden gelöscht.");
@@ -208,14 +125,14 @@ namespace P01_SQL_Datenbankanbindung_Konsole
         {
             using (var command = connection.CreateCommand())
             {
-                // SQL-Befehl zum Auswählen aller Daten aus der Tabelle Persons
+                // SQL-B. zum Auswählen aller Daten aus Persons
                 command.CommandText = "SELECT * FROM Persons";
 
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        // Daten aus der Ergebnismenge abrufen und ausgeben
+                        // Infos aus der Resulttabelle(Datenbank) holen und ausgeben
                         Console.WriteLine($"Id: {reader.GetInt32(0)}, Name: {reader.GetString(1)}");
                     }
                 }

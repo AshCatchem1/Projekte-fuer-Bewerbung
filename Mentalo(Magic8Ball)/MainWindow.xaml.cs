@@ -17,7 +17,8 @@ namespace Mentalo_Magic8Ball_
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string[] answers = { "Ja", "Nein", "Vielleicht", "Frag später nochmal", "Wahrscheinlich nicht", "Auf jeden Fall" };
+        // vielleicht noch lustige Anworten überlegen..
+        private readonly string[] answers = { "Ja", "Nein", "Vielleicht", "Frag später nochmal", "Wahrscheinlich nicht", "Auf jeden Fall!" };
 
         public MainWindow()
         {
@@ -30,20 +31,20 @@ namespace Mentalo_Magic8Ball_
             // Benutzerfrage erhalten
             string userQuestion = txt_UserEingabe.Text;
 
-            // Überprüfen, ob eine gültige Frage eingegeben wurde
-            if (string.IsNullOrWhiteSpace(userQuestion) || userQuestion.ToLower() == "frage eingeben!")
+            // Prüfen d. gültigen Frageingabe
+            if (string.IsNullOrWhiteSpace(userQuestion) || userQuestion.ToLower() == "Frage eingeben!")
             {
-                // Wenn keine gültige Frage eingegeben wurde, zeige einen Hinweis an
+                // Wenn keine gültige Frage eingegeben wurde, zeige Hinweis an
                 outputLabel.Content = "Bitte eine gültige Frage eingeben!";
             }
             else
             {
-                // Zufällige Antwort auswählen
+                // random Antwort
                 Random random = new Random();
                 int index = random.Next(answers.Length);
                 string answer = answers[index];
 
-                // Antwort anzeigen
+                // Antwort im outputLabel
                 outputLabel.Content = $"Frage: {userQuestion}\nAntwort: {answer}";
             }
         }
@@ -51,7 +52,7 @@ namespace Mentalo_Magic8Ball_
 
         private void txt_UserEingabe_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Textbox leeren, wenn der Benutzer den Fokus erhält
+            // Textbox leeren, wenn der Benutzer reinclickt
             txt_UserEingabe.Text = "";
         }
     }
