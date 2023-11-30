@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>Mentalo_Magic8Ball_</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="3607086_noscale_1ArrXd_GhiK7b.jpg" />
+    <None Remove="mentalo.jpg" />
+    <None Remove="sternenhimmel-1140x697.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="3607086_noscale_1ArrXd_GhiK7b.jpg" />
+    <Resource Include="mentalo.jpg" />
+    <Resource Include="sternenhimmel-1140x697.jpg" />
+  </ItemGroup>
+
+</Project>
