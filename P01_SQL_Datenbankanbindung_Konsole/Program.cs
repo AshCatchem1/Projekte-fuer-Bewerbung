@@ -74,7 +74,7 @@ namespace P01_SQL_Datenbankanbindung_Konsole
                                 return;
 
                             default:
-                                Console.WriteLine("Ungültige Auswahl. Bitte wählen Sie 1, 2, 3 oder 4.");
+                                Console.WriteLine("Ungültige Eingabe. Bitte wählen Sie 1, 2, 3 oder 4");
                                 break;
                         }
 
@@ -94,7 +94,7 @@ namespace P01_SQL_Datenbankanbindung_Konsole
         {
             using (var command = connection.CreateCommand())
             {
-                // SQL-Befehl zum Einfügen von Daten in die Tabelle Persons
+                // SQLBefehl zum Einfügen von Daten in die Tabelle Persons
                 command.CommandText = "INSERT INTO Persons (Name) VALUES (@Name)";
                 command.Parameters.AddWithValue("@Name", name); // Parameter hinzufügen
                 command.ExecuteNonQuery();
